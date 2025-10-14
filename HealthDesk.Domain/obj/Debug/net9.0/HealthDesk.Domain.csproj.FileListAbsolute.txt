@@ -1,0 +1,11 @@
+C:\Users\Monster\Desktop\HealthDesk\backend\HealthDesk.Domain\bin\Debug\net9.0\HealthDesk.Domain.deps.json
+C:\Users\Monster\Desktop\HealthDesk\backend\HealthDesk.Domain\bin\Debug\net9.0\HealthDesk.Domain.dll
+C:\Users\Monster\Desktop\HealthDesk\backend\HealthDesk.Domain\bin\Debug\net9.0\HealthDesk.Domain.pdb
+C:\Users\Monster\Desktop\HealthDesk\backend\HealthDesk.Domain\obj\Debug\net9.0\HealthDesk.Domain.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Monster\Desktop\HealthDesk\backend\HealthDesk.Domain\obj\Debug\net9.0\HealthDesk.Domain.AssemblyInfoInputs.cache
+C:\Users\Monster\Desktop\HealthDesk\backend\HealthDesk.Domain\obj\Debug\net9.0\HealthDesk.Domain.AssemblyInfo.cs
+C:\Users\Monster\Desktop\HealthDesk\backend\HealthDesk.Domain\obj\Debug\net9.0\HealthDesk.Domain.csproj.CoreCompileInputs.cache
+C:\Users\Monster\Desktop\HealthDesk\backend\HealthDesk.Domain\obj\Debug\net9.0\HealthDesk.Domain.dll
+C:\Users\Monster\Desktop\HealthDesk\backend\HealthDesk.Domain\obj\Debug\net9.0\refint\HealthDesk.Domain.dll
+C:\Users\Monster\Desktop\HealthDesk\backend\HealthDesk.Domain\obj\Debug\net9.0\HealthDesk.Domain.pdb
+C:\Users\Monster\Desktop\HealthDesk\backend\HealthDesk.Domain\obj\Debug\net9.0\ref\HealthDesk.Domain.dll

@@ -1,0 +1,6 @@
+@HealthDesk.Api_HostAddress = http://localhost:5013
+
+GET {{HealthDesk.Api_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

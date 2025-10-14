@@ -1,0 +1,56 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v9.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v9.0": {
+      "HealthDesk.Infrastructure/1.0.0": {
+        "dependencies": {
+          "HealthDesk.Application": "1.0.0",
+          "HealthDesk.Domain": "1.0.0"
+        },
+        "runtime": {
+          "HealthDesk.Infrastructure.dll": {}
+        }
+      },
+      "HealthDesk.Application/1.0.0": {
+        "dependencies": {
+          "HealthDesk.Domain": "1.0.0"
+        },
+        "runtime": {
+          "HealthDesk.Application.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
+      },
+      "HealthDesk.Domain/1.0.0": {
+        "runtime": {
+          "HealthDesk.Domain.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
+      }
+    }
+  },
+  "libraries": {
+    "HealthDesk.Infrastructure/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "HealthDesk.Application/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "HealthDesk.Domain/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}

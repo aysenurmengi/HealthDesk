@@ -36,6 +36,17 @@ namespace HealthDesk.Domain.Entities
             AddDomainEvent(new AppointmentCreatedEvent(this)); //randevu oluşturulduğunda domain event üretilir
         }
 
+        public void Cancel()
+        {
+            if (Status == AppointmentStatus.Completed)
+                throw new InvalidOperationException("Completed appointments cannot be canceled.");
+            if (Status == AppointmentStatus.Rejected)
+                throw new InvalidOperationException("Appointment is already canceled.");
+
+            Status = AppointmentStatus.Rejected;
+            AddDomainEvent(new AppointmentCanceledEvent(this));
+        }
+
         //davranışlar ve event üretimi
         public void Approve()
         {

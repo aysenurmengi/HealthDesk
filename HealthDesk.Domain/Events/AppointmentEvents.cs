@@ -27,3 +27,8 @@ public sealed class AppointmentRescheduledEvent(Appointment appointment) : Domai
 {
     public Appointment Appointment { get; } = appointment;
 }
+
+public sealed class AppointmentCanceledEvent(Appointment appointment) : DomainEvent
+{
+    public Appointment Appointment { get; } = appointment;
+}

@@ -1,0 +1,38 @@
+using System.Diagnostics;
+using MediatR;
+using Microsoft.Extensions.Logging;
+
+namespace HealthDesk.Application.Common.Behaviors
+{
+    public class PerformanceBehavior<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse>
+        where TRequest : IRequest<TResponse>
+    {
+        private readonly ILogger<PerformanceBehavior<TRequest, TResponse>> _logger;
+        private readonly Stopwatch _timer;
+
+        // zaman ayarı eklemesi yapabiliriz
+        // private const int ThresholdMilliseconds = 500;
+        public PerformanceBehavior(ILogger<PerformanceBehavior<TRequest, TResponse>> logger)
+        {
+            _logger = logger;
+            _timer = new Stopwatch();
+        }
+
+        public async Task<TResponse> Handle(TRequest request, RequestHandlerDelegate<TResponse> next, CancellationToken cancellationToken)
+        {
+            _timer.Start();
+
+            var response = await next();
+
+            _timer.Stop();
+
+            var elapsedMilliseconds = _timer.ElapsedMilliseconds;
+
+            var requestName = typeof(TRequest).Name;
+
+            _logger.LogInformation("Request {RequestName} executed in {ElapsedMilliseconds} ms", requestName, elapsedMilliseconds);
+
+            return response;
+        }
+    }   
+}

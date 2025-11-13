@@ -1,6 +1,6 @@
 namespace HealthDesk.Application.Common.Interfaces
 {
-    public class ICurrentUserService
+    public interface ICurrentUserService
     {
         int? UserId { get; }        // JWT içinden gelen UserId
         string? Role { get; }       // Kullanıcının rolü (Admin, Doctor, Patient)

@@ -22,12 +22,14 @@ namespace HealthDesk.Application.Features.Appointments.Commands.CancelAppointmen
             var appointment = await _unitOfWork.Appointments.GetByIdAsync(request.AppointmentId);
             if (appointment is null)
                 throw new KeyNotFoundException($"Appointment with ID {request.AppointmentId} not found.");
-
+                
+            var userId = _currentUserService.UserId;
+            var userRole = _currentUserService.Role;
             //yetki kontrolü
-            if (user.Role == "Patient" && appointment.PatientId != user.Id)
+            if (userRole == "Patient" && appointment.PatientId != userId)
                 throw new UnauthorizedAccessException("Patients can only cancel their own appointments.");
             
-            if (user.Role == "Doctor" && appointment.DoctorId != user.Id)
+            if (userRole == "Doctor" && appointment.DoctorId != userId)
                 throw new UnauthorizedAccessException("Doctors can only cancel their own appointments.");
 
             appointment.Cancel();

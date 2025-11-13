@@ -18,6 +18,7 @@ namespace HealthDesk.Domain.Entities
         public string? Notes { get; private set; }
         public DateTime CreatedAt { get; private set; } = DateTime.UtcNow;
 
+        public Prescription? Prescription { get; private set; }
 
         //randevu oluşturma kuralları
         public Appointment(int doctorId, int patientId, DateTime startsAt, string? notes = null)

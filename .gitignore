@@ -1,6 +1,6 @@
 # Build outputs
-bin/
-obj/
+**/bin/
+**/obj/
 
 # User-specific files
 *.user
@@ -34,3 +34,5 @@ packages/
 
 # Publish output
 publish/
+
+appsettings.Development.json

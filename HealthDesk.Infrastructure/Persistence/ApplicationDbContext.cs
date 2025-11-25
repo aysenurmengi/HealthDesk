@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using HealthDesk.Domain.Entities;
+using HealthDesk.Domain.Common;
 
 namespace HealthDesk.Infrastructure.Persistence
 {
@@ -19,6 +20,7 @@ namespace HealthDesk.Infrastructure.Persistence
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+             modelBuilder.Ignore<DomainEvent>();
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(ApplicationDbContext).Assembly);
             base.OnModelCreating(modelBuilder);
         }

@@ -17,7 +17,7 @@ namespace HealthDesk.Infrastructure.Persistence.EntityTypeConfiguration
                 .HasMaxLength(1000);
 
             builder.Property(p => p.CreatedAt)
-                .HasDefaultValueSql("GETUTCDATE()");
+                .HasDefaultValueSql("CURRENT_TIMESTAMP");
 
             //doktor ilişkisi
             builder.HasOne(p => p.Doctor)

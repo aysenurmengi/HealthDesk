@@ -7,14 +7,14 @@ using MediatR;
 
 namespace HealthDesk.Application.Features.Auth.Commands;
 
-public class RefreshTokenCommandHandler
+public class RefreshTokenHandler
     : IRequestHandler<RefreshTokenCommand, LoginUserDto>
 {
     private readonly IUserRepository _userRepository;
     private readonly IJwtService _jwtService;
     private readonly IRefreshTokenRepository _refreshTokenRepository;
 
-    public RefreshTokenCommandHandler(
+    public RefreshTokenHandler(
         IUserRepository userRepository,
         IJwtService jwtService,
         IRefreshTokenRepository refreshTokenRepository)

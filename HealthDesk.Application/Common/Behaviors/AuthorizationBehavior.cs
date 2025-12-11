@@ -1,6 +1,7 @@
 using MediatR;
 using HealthDesk.Application.Common.Exceptions;
 using HealthDesk.Application.Common.Interfaces;
+using HealthDesk.Application.Features.Auth.Commands;
 
 namespace HealthDesk.Application.Common.Behaviors
 {
@@ -20,12 +21,17 @@ namespace HealthDesk.Application.Common.Behaviors
             RequestHandlerDelegate<TResponse> next, 
             CancellationToken cancellationToken)
         {
-            // Eğer kullanıcı girişi yoksa -> Unauthorized
+            // Bu işlemler anonim olmalıdır → Authorization atlanır
+            if (request is RegisterUserCommand ||
+                request is LoginUserCommand ||
+                request is RefreshTokenCommand)
+            {
+                return await next();
+            }
+
+            // Kullanıcı giriş yapmamışsa → engelle
             if (_currentUser.UserId is null)
                 throw new UnauthorizedAccessException("User not authenticated.");
-
-            // Eğer rol kontrolü gerekiyorsa burada yapılabilir.
-            // (İleri seviye: Custom attribute ile [Authorize(Roles="Admin")])
 
             return await next();
         }

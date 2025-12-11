@@ -1,5 +1,8 @@
 using HealthDesk.Application.Common.Interfaces;
+using HealthDesk.Application.Common.Interfaces.Repositories;
 using HealthDesk.Infrastructure.Persistence;
+using HealthDesk.Infrastructure.Repositories;
+using HealthDesk.Infrastructure.Security;
 using HealthDesk.Infrastructure.Services;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -19,6 +22,9 @@ namespace HealthDesk.Infrastructure
             services.AddScoped<IJwtService, JwtService>();
             services.AddScoped<IEmailService, EmailService>();
             services.AddScoped<ICurrentUserService, CurrentUserService>();
+            services.AddScoped<IPasswordHasher, PasswordHasher>();
+            services.AddScoped<IUserRepository, UserRepository>();
+
 
             services.AddHttpContextAccessor();
 

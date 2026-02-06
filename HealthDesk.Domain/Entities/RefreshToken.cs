@@ -19,6 +19,15 @@ namespace HealthDesk.Domain.Entities
             DateTime createdAt,
             DateTime expiresAt)
         {
+            if (string.IsNullOrWhiteSpace(token))
+                throw new ArgumentException("Refresh token cannot be empty.", nameof(token));
+
+            if (userId <= 0)
+                throw new ArgumentOutOfRangeException(nameof(userId), "UserId must be a positive number.");
+
+            if (expiresAt <= createdAt)
+                throw new ArgumentException("ExpiresAt must be after CreatedAt.", nameof(expiresAt));
+
             Token = token;
             UserId = userId;
             CreatedAt = createdAt;

@@ -13,13 +13,16 @@ public class RegisterUserHandler
 {
     private readonly IUserRepository _userRepository;
     private readonly IPasswordHasher _passwordHasher;
+    private readonly IEmailService _emailService;
 
     public RegisterUserHandler(
         IUserRepository userRepository,
-        IPasswordHasher passwordHasher)
+        IPasswordHasher passwordHasher,
+        IEmailService emailService)
     {
         _userRepository = userRepository;
         _passwordHasher = passwordHasher;
+        _emailService = emailService;
     }
 
     public async Task<RegisteredUserDto> Handle(
@@ -43,6 +46,12 @@ public class RegisterUserHandler
         );
 
         await _userRepository.AddAsync(user);
+
+        await _emailService.SendEmailAsync(
+            to: user.Email.Address,
+            subject: "Welcome to HealthDesk",
+            body: $"<p>Hi {user.FullName},</p><p>Your account has been created successfully.</p>"
+        );
 
         // dto dönüş
         return new RegisteredUserDto(

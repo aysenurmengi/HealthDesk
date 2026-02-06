@@ -8,6 +8,9 @@ namespace HealthDesk.Application.Common.Interfaces.Repositories
         Task<IEnumerable<Doctor>> GetByClinicIdAsync(int clinicId);
         Task<IEnumerable<Doctor>> GetBySpecialtyAsync(SpecialtyType specialty);
         Task<IEnumerable<Doctor>> GetAvailableDoctorsAsync(DateTime date);
+        Task<Doctor?> GetByIdWithDetailsAsync(int doctorId);
+        Task<IEnumerable<Doctor>> GetAllWithDetailsAsync();
+        Task<Doctor?> GetByUserIdAsync(int userId);
     }
 
 }

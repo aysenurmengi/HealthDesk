@@ -17,7 +17,10 @@ public sealed class GetAllClinicsHandler : IRequestHandler<GetAllClinicsQuery, I
     
     public async Task<IEnumerable<ClinicDto>> Handle(GetAllClinicsQuery req, CancellationToken ct)
     {
-        var clinics = await _unitOfWork.Clinics.GetAllAsync();
+        var clinics = string.IsNullOrWhiteSpace(req.City)
+            ? await _unitOfWork.Clinics.GetAllAsync()
+            : await _unitOfWork.Clinics.GetByCityAsync(req.City);
+
         return _mapper.Map<IEnumerable<ClinicDto>>(clinics);
     }
 }

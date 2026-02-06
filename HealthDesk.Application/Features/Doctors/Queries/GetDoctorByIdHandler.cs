@@ -22,12 +22,16 @@ namespace HealthDesk.Application.Features.Doctors.Queries
 
         public async Task<DoctorDto> Handle(GetDoctorByIdQuery request, CancellationToken cancellationToken)
         {
-            var doctor = await _unitOfWork.Doctors.GetByIdAsync(request.Id) 
+            var doctor = await _unitOfWork.Doctors.GetByIdWithDetailsAsync(request.Id)
                 ?? throw new NotFoundException(request.Id);
-            if (_currentUser.Role != UserRoles.Admin &&
-                !(_currentUser.Role == UserRoles.Doctor && _currentUser.UserId.Value == request.Id))
+
+            if (_currentUser.Role != UserRoles.Admin)
             {
-                throw new ForbiddenAccessException();
+                if (_currentUser.Role != UserRoles.Doctor || _currentUser.UserId is null)
+                    throw new ForbiddenAccessException();
+
+                if (doctor.UserId != _currentUser.UserId.Value)
+                    throw new ForbiddenAccessException();
             }
             return _mapper.Map<DoctorDto>(doctor);
         }

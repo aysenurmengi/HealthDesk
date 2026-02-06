@@ -8,6 +8,11 @@ namespace HealthDesk.Application.Common.Interfaces.Repositories
         Task<IEnumerable<Appointment>> GetByPatientIdAsync(int patientId);
         Task<IEnumerable<Appointment>> GetCompletedAppointmentsAsync(int doctorId);
         Task<bool> IsDoctorAvailableAsync(int doctorId, DateTime startsAt, CancellationToken cancellationToken = default);
+        Task<IEnumerable<Appointment>> GetByDoctorAndDateAsync(int doctorId, DateTime date);
+        Task<Appointment?> GetByIdWithDetailsAsync(int appointmentId);
+        Task<IEnumerable<Appointment>> GetByDoctorIdWithDetailsAsync(int doctorId);
+        Task<IEnumerable<Appointment>> GetByPatientIdWithDetailsAsync(int patientId);
+        Task<IEnumerable<Appointment>> GetAllWithDetailsAsync();
         void UpdateRange(IEnumerable<Appointment> appointments);
     }
 }

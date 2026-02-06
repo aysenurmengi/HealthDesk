@@ -40,6 +40,48 @@ namespace HealthDesk.Infrastructure.Persistence.Repositories
                 .AnyAsync(a => a.DoctorId == doctorId && a.StartsAt == startsAt, cancellationToken);
         }
 
+        public async Task<IEnumerable<Appointment>> GetByDoctorAndDateAsync(int doctorId, DateTime date)
+        {
+            var targetDate = DateTime.SpecifyKind(date.Date, DateTimeKind.Utc);
+            return await _context.Appointments
+                .Where(a => a.DoctorId == doctorId && a.StartsAt.Date == targetDate)
+                .ToListAsync();
+        }
+
+        public async Task<Appointment?> GetByIdWithDetailsAsync(int appointmentId)
+        {
+            return await _context.Appointments
+                .Include(a => a.Doctor).ThenInclude(d => d.User)
+                .Include(a => a.Patient).ThenInclude(p => p.User)
+                .FirstOrDefaultAsync(a => a.Id == appointmentId);
+        }
+
+        public async Task<IEnumerable<Appointment>> GetByDoctorIdWithDetailsAsync(int doctorId)
+        {
+            return await _context.Appointments
+                .Include(a => a.Doctor).ThenInclude(d => d.User)
+                .Include(a => a.Patient).ThenInclude(p => p.User)
+                .Where(a => a.DoctorId == doctorId)
+                .ToListAsync();
+        }
+
+        public async Task<IEnumerable<Appointment>> GetByPatientIdWithDetailsAsync(int patientId)
+        {
+            return await _context.Appointments
+                .Include(a => a.Doctor).ThenInclude(d => d.User)
+                .Include(a => a.Patient).ThenInclude(p => p.User)
+                .Where(a => a.PatientId == patientId)
+                .ToListAsync();
+        }
+
+        public async Task<IEnumerable<Appointment>> GetAllWithDetailsAsync()
+        {
+            return await _context.Appointments
+                .Include(a => a.Doctor).ThenInclude(d => d.User)
+                .Include(a => a.Patient).ThenInclude(p => p.User)
+                .ToListAsync();
+        }
+
         public void UpdateRange(IEnumerable<Appointment> appointments)
         {
             _context.Appointments.UpdateRange(appointments);

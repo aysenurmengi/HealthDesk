@@ -19,6 +19,15 @@ namespace HealthDesk.Domain.Entities
             if (string.IsNullOrWhiteSpace(content))
                 throw new ArgumentException("Prescription content cannot be empty.");
 
+            if (appointmentId <= 0)
+                throw new ArgumentOutOfRangeException(nameof(appointmentId), "AppointmentId must be a positive number.");
+
+            if (doctorId <= 0)
+                throw new ArgumentOutOfRangeException(nameof(doctorId), "DoctorId must be a positive number.");
+
+            if (patientId <= 0)
+                throw new ArgumentOutOfRangeException(nameof(patientId), "PatientId must be a positive number.");
+
             AppointmentId = appointmentId;
             DoctorId = doctorId;
             PatientId = patientId;

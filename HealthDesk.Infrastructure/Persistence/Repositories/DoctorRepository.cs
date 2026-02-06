@@ -34,5 +34,29 @@ namespace HealthDesk.Infrastructure.Persistence.Repositories
                 .ToListAsync();
 
         }
+
+        public async Task<Doctor?> GetByIdWithDetailsAsync(int doctorId)
+        {
+            return await _context.Doctors
+                .Include(d => d.Clinic)
+                .Include(d => d.User)
+                .FirstOrDefaultAsync(d => d.Id == doctorId);
+        }
+
+        public async Task<IEnumerable<Doctor>> GetAllWithDetailsAsync()
+        {
+            return await _context.Doctors
+                .Include(d => d.Clinic)
+                .Include(d => d.User)
+                .ToListAsync();
+        }
+
+        public async Task<Doctor?> GetByUserIdAsync(int userId)
+        {
+            return await _context.Doctors
+                .Include(d => d.Clinic)
+                .Include(d => d.User)
+                .FirstOrDefaultAsync(d => d.UserId == userId);
+        }
     }
 }

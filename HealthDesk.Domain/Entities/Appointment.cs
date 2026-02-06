@@ -21,7 +21,7 @@ namespace HealthDesk.Domain.Entities
         public Prescription? Prescription { get; private set; }
 
         //randevu oluşturma kuralları
-        public Appointment(int doctorId, int patientId, DateTime startsAt, string? notes = null)
+        public Appointment(int doctorId, int patientId, int clinicId, DateTime startsAt, string? notes = null)
         {
             if (startsAt <= DateTime.UtcNow)
                 throw new InvalidOperationException("Appointment start time must be in the future.");
@@ -31,8 +31,10 @@ namespace HealthDesk.Domain.Entities
 
             DoctorId = doctorId;
             PatientId = patientId;
+            ClinicId = clinicId;
             StartsAt = startsAt;
             Notes = notes;
+            Status = AppointmentStatus.Requested;
 
             AddDomainEvent(new AppointmentCreatedEvent(this)); //randevu oluşturulduğunda domain event üretilir
         }

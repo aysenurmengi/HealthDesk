@@ -1,4 +1,6 @@
 using HealthDesk.Application.Features.Auth.Commands;
+using HealthDesk.Application.Features.Auth.Commands.RegisterDoctor;
+using HealthDesk.Application.Features.Auth.Commands.RegisterPatient;
 using HealthDesk.Application.Features.Auth.Queries;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
@@ -17,13 +19,23 @@ public class AuthController : ControllerBase
         _mediator = mediator;
     }
 
-    [HttpPost("register")]
-    public async Task<IActionResult> Register([FromBody] RegisterUserCommand command)
+    [AllowAnonymous]
+    [HttpPost("register-patient")]
+    public async Task<IActionResult> RegisterPatient([FromBody] RegisterPatientCommand command)
     {
         var result = await _mediator.Send(command);
         return Ok(result);
     }
 
+    [Authorize(Roles = "Admin")]
+    [HttpPost("register-doctor")]
+    public async Task<IActionResult> RegisterDoctor([FromBody] RegisterDoctorCommand command)
+    {
+        var result = await _mediator.Send(command);
+        return Ok(result);
+    }
+
+    [AllowAnonymous]
     [HttpPost("login")]
     public async Task<IActionResult> Login([FromBody] LoginUserCommand command)
     {
@@ -31,6 +43,7 @@ public class AuthController : ControllerBase
         return Ok(result);
     }
 
+    [AllowAnonymous]
     [HttpPost("refresh")]
     public async Task<IActionResult> Refresh([FromBody] RefreshTokenCommand command)
     {
@@ -48,8 +61,9 @@ public class AuthController : ControllerBase
 
     [Authorize]
     [HttpPost("logout")]
-    public IActionResult Logout()
+    public async Task<IActionResult> Logout([FromBody] LogoutUserCommand command)
     {
+        await _mediator.Send(command);
     // Frontend token'ı silince logout gerçekleşir.
         return Ok(new { message = "Logged out" });
     }

@@ -18,5 +18,21 @@ namespace HealthDesk.Infrastructure.Persistence.Repositories
                 .Include(c => c.Doctors)
                 .ToListAsync();
         }
+
+        public async Task<IEnumerable<Clinic>> GetByCityAsync(string city)
+        {
+            return await _context.Clinics
+                .Where(c => c.City.ToLower() == city.ToLower())
+                .ToListAsync();
+        }
+
+        public async Task<IEnumerable<string>> GetCitiesAsync()
+        {
+            return await _context.Clinics
+                .Select(c => c.City)
+                .Distinct()
+                .OrderBy(c => c)
+                .ToListAsync();
+        }
     }
 }

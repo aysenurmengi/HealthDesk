@@ -20,6 +20,12 @@ namespace HealthDesk.Domain.Entities
             if (string.IsNullOrWhiteSpace(fullName))
                 throw new ArgumentException("Full name cannot be empty.", nameof(fullName));
 
+            if (clinicId <= 0)
+                throw new ArgumentOutOfRangeException(nameof(clinicId), "ClinicId must be a positive number.");
+
+            if (userId <= 0)
+                throw new ArgumentOutOfRangeException(nameof(userId), "UserId must be a positive number.");
+
             if (!Enum.IsDefined(typeof(SpecialtyType), specialty) || specialty == 0)
                 throw new ArgumentException("A doctor must have one valid specialty.", nameof(specialty));
 
@@ -29,6 +35,21 @@ namespace HealthDesk.Domain.Entities
             Specialty = specialty;
         }
 
+        public void UpdateDetails(string fullName, int clinicId, SpecialtyType specialty)
+        {
+            if (string.IsNullOrWhiteSpace(fullName))
+                throw new ArgumentException("Full name cannot be empty.", nameof(fullName));
+
+            if (clinicId <= 0)
+                throw new ArgumentOutOfRangeException(nameof(clinicId), "ClinicId must be a positive number.");
+
+            if (!Enum.IsDefined(typeof(SpecialtyType), specialty) || specialty == 0)
+                throw new ArgumentException("A doctor must have one valid specialty.", nameof(specialty));
+
+            FullName = fullName;
+            ClinicId = clinicId;
+            Specialty = specialty;
+        }
 
     }
 }

@@ -27,10 +27,13 @@ namespace HealthDesk.Application.Features.Prescriptions.Queries
             if(_currentUser.Role != UserRoles.Doctor)
                 throw new ForbiddenAccessException();
 
-            var prescriptions = await _unitOfWork.Prescriptions.GetByDoctorIdAsync(_currentUser.UserId.Value);
+            var doctor = await _unitOfWork.Doctors.GetByUserIdAsync(_currentUser.UserId.Value)
+                ?? throw new NotFoundException($"UserId={_currentUser.UserId.Value}");
+
+            var prescriptions = await _unitOfWork.Prescriptions.GetByDoctorIdAsync(doctor.Id);
             
             if(prescriptions is null || !prescriptions.Any())
-                throw new NotFoundException( $"DoctorId={_currentUser.UserId.Value}");
+                throw new NotFoundException($"DoctorId={doctor.Id}");
 
             return _mapper.Map<IEnumerable<PrescriptionDto>>(prescriptions);
         }   

@@ -2,6 +2,7 @@ using MediatR;
 using HealthDesk.Application.Common.Exceptions;
 using HealthDesk.Application.Common.Interfaces;
 using HealthDesk.Application.Features.Auth.Commands;
+using HealthDesk.Application.Features.Auth.Commands.RegisterPatient;
 
 namespace HealthDesk.Application.Common.Behaviors
 {
@@ -23,6 +24,7 @@ namespace HealthDesk.Application.Common.Behaviors
         {
             // Bu işlemler anonim olmalıdır → Authorization atlanır
             if (request is RegisterUserCommand ||
+                request is RegisterPatientCommand ||
                 request is LoginUserCommand ||
                 request is RefreshTokenCommand)
             {

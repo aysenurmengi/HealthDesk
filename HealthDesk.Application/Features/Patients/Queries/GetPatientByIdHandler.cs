@@ -22,13 +22,14 @@ namespace HealthDesk.Application.Patients.Queries
 
         public async Task<PatientDto> Handle(GetPatientByIdQuery request, CancellationToken cancellationToken)
         {
-            var patient = await _unitOfWork.Patients.GetByIdAsync(request.Id);
+            var patient = await _unitOfWork.Patients.GetByIdWithUserAsync(request.Id)
+                ?? throw new NotFoundException(request.Id);
 
             if (_currentUser.UserId is null)
                 throw new UnauthorizedAccessException("User not authenticated.");
 
-            if (_currentUser.Role != UserRoles.Admin && 
-                !(_currentUser.Role == UserRoles.Patient && _currentUser.UserId.Value == request.Id))
+            if (_currentUser.Role != UserRoles.Admin &&
+                !(_currentUser.Role == UserRoles.Patient && patient.UserId == _currentUser.UserId.Value))
             {
                 throw new ForbiddenAccessException();
             }

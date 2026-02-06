@@ -16,10 +16,10 @@ namespace HealthDesk.Application.Features.Appointments.Queries
             _mapper = mapper;
         }
 
-        public async Task<IEnumerable<AppointmentDto>> Handle(GetAllAppointmentsQuery req, CancellationToken ct)
-        {
-            var appointments = await _unitOfWork.Appointments.GetAllAsync();
-            return _mapper.Map<IEnumerable<AppointmentDto>>(appointments);
-        }
+    public async Task<IEnumerable<AppointmentDto>> Handle(GetAllAppointmentsQuery req, CancellationToken ct)
+    {
+        var appointments = await _unitOfWork.Appointments.GetAllWithDetailsAsync();
+        return _mapper.Map<IEnumerable<AppointmentDto>>(appointments);
     }
+}
 }

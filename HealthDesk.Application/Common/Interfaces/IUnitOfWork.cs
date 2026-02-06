@@ -7,6 +7,7 @@ namespace HealthDesk.Application.Common.Interfaces
     {
         IAppointmentRepository Appointments { get; }
         IDoctorRepository Doctors { get; }
+        IDoctorAvailabilityRepository DoctorAvailabilities { get; }
         IPatientRepository Patients { get; }
         IClinicRepository Clinics { get; }
         IPrescriptionRepository Prescriptions { get; }

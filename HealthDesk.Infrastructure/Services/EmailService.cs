@@ -1,7 +1,5 @@
 using System.Net;
 using System.Net.Mail;
-using System.Threading;
-using System.Threading.Tasks;
 using HealthDesk.Application.Common.Interfaces;
 using Microsoft.Extensions.Configuration;
 
@@ -20,16 +18,28 @@ namespace HealthDesk.Infrastructure.Services
         {
             var emailSettings = _configuration.GetSection("EmailSettings");
 
-            var smtpClient = new SmtpClient(emailSettings["Host"])
+            var host = emailSettings["Host"];
+            var userName = emailSettings["UserName"];
+            var password = emailSettings["Password"];
+            var fromName = emailSettings["FromName"]
+                ?? emailSettings["DisplayName"]
+                ?? "HealthDesk Notifications";
+
+            if (string.IsNullOrWhiteSpace(host) ||
+                string.IsNullOrWhiteSpace(userName) ||
+                string.IsNullOrWhiteSpace(password))
+                throw new InvalidOperationException("Email settings are not configured.");
+
+            var smtpClient = new SmtpClient(host)
             {
                 Port = int.Parse(emailSettings["Port"]!),
-                Credentials = new NetworkCredential(emailSettings["UserName"], emailSettings["Password"]),
+                Credentials = new NetworkCredential(userName, password),
                 EnableSsl = bool.Parse(emailSettings["EnableSSL"]!)
             };
 
             var mailMessage = new MailMessage
             {
-                From = new MailAddress(emailSettings["UserName"]!, "HealthDesk Notifications"),
+                From = new MailAddress(userName, fromName),
                 Subject = subject,
                 Body = body,
                 IsBodyHtml = true

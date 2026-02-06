@@ -29,6 +29,8 @@ namespace HealthDesk.Application.Features.Clinics.Commands.CreateClinic
             var clinic =  new Clinic
             (
                 request.Name,
+                request.City,
+                request.District,
                 request.Address,
                 request.PhoneNumber,
                 request.Specialty

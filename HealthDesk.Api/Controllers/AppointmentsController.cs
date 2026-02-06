@@ -1,5 +1,7 @@
 using HealthDesk.Application.Features.Appointments.Commands.CancelAppointment;
 using HealthDesk.Application.Features.Appointments.Commands.CreateAppointment;
+using HealthDesk.Application.Features.Appointments.Commands.ApproveAppointment;
+using HealthDesk.Application.Features.Appointments.Commands.RejectAppointment;
 using HealthDesk.Application.Features.Appointments.Commands.UpdateAppointment;
 using HealthDesk.Application.Features.Appointments.Queries;
 using MediatR;
@@ -25,6 +27,14 @@ namespace HealthDesk.Api.Controllers
             var result = await _mediator.Send(new GetAllAppointmentsQuery());
             return Ok(result);
         }  
+
+        [HttpGet("mine")]
+        [Authorize(Roles = "Doctor, Patient")]
+        public async Task<IActionResult> GetMyAppointments()
+        {
+            var result = await _mediator.Send(new GetMyAppointmentsQuery());
+            return Ok(result);
+        }
 
         [HttpPost]
         [Authorize(Roles = "Doctor, Patient")]
@@ -52,6 +62,22 @@ namespace HealthDesk.Api.Controllers
             }
 
             var result = await _mediator.Send(command);
+            return Ok(result);
+        }
+
+        [HttpPut("{appointmentId:int}/approve")]
+        [Authorize(Roles = "Doctor")]
+        public async Task<IActionResult> ApproveAppointment(int appointmentId)
+        {
+            var result = await _mediator.Send(new ApproveAppointmentCommand(appointmentId));
+            return Ok(result);
+        }
+
+        [HttpPut("{appointmentId:int}/reject")]
+        [Authorize(Roles = "Doctor")]
+        public async Task<IActionResult> RejectAppointment(int appointmentId)
+        {
+            var result = await _mediator.Send(new RejectAppointmentCommand(appointmentId));
             return Ok(result);
         }
 

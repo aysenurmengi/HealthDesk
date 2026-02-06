@@ -16,6 +16,12 @@ namespace HealthDesk.Domain.Entities
 
         public User(string fullName, Email email, string passwordHash, UserRole role)
         {
+            if (string.IsNullOrWhiteSpace(fullName))
+                throw new ArgumentException("Full name cannot be empty.", nameof(fullName));
+
+            if (string.IsNullOrWhiteSpace(passwordHash))
+                throw new ArgumentException("Password hash cannot be empty.", nameof(passwordHash));
+
             FullName = fullName;
             Email = email;
             PasswordHash = passwordHash;

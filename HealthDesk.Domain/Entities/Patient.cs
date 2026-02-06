@@ -13,8 +13,22 @@ namespace HealthDesk.Domain.Entities
 
         public Patient(string fullName, int userId)
         {
+            if (string.IsNullOrWhiteSpace(fullName))
+                throw new ArgumentException("Full name cannot be empty.", nameof(fullName));
+
+            if (userId <= 0)
+                throw new ArgumentOutOfRangeException(nameof(userId), "UserId must be a positive number.");
+
             FullName = fullName;
             UserId = userId;
+        }
+
+        public void UpdateFullName(string fullName)
+        {
+            if (string.IsNullOrWhiteSpace(fullName))
+                throw new ArgumentException("Full name cannot be empty.", nameof(fullName));
+
+            FullName = fullName;
         }
     }
 }

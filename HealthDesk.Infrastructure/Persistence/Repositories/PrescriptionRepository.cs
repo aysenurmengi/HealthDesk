@@ -14,12 +14,17 @@ namespace HealthDesk.Infrastructure.Persistence.Repositories
 
         public async Task<Prescription?> GetByAppointmentIdAsync(int appointmentId)
         {
-            return await _context.Prescriptions.FirstOrDefaultAsync(p => p.AppointmentId == appointmentId);
+            return await _context.Prescriptions
+                .Include(p => p.Doctor).ThenInclude(d => d.User)
+                .Include(p => p.Patient).ThenInclude(pat => pat.User)
+                .FirstOrDefaultAsync(p => p.AppointmentId == appointmentId);
         }
 
         public async Task<IEnumerable<Prescription>> GetByDoctorIdAsync(int doctorId)
         {
             return await _context.Prescriptions
+                .Include(p => p.Doctor).ThenInclude(d => d.User)
+                .Include(p => p.Patient).ThenInclude(pat => pat.User)
                 .Where(p => p.DoctorId == doctorId)
                 .ToListAsync();
         }
@@ -27,6 +32,8 @@ namespace HealthDesk.Infrastructure.Persistence.Repositories
         public async Task<IEnumerable<Prescription>> GetByPatientIdAsync(int patientId)
         {
             return await _context.Prescriptions
+                .Include(p => p.Doctor).ThenInclude(d => d.User)
+                .Include(p => p.Patient).ThenInclude(pat => pat.User)
                 .Where(p => p.PatientId == patientId)
                 .ToListAsync();
         }

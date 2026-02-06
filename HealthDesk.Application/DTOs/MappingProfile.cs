@@ -21,7 +21,8 @@ namespace HealthDesk.Application.DTOs
                 .ForMember(dest => dest.FullName, opt => opt.MapFrom(src => src.User.FullName))
                 .ForMember(dest => dest.Email, opt => opt.MapFrom(src => src.User.Email.ToString()));
 
-            CreateMap<Clinic, ClinicDto>();
+            CreateMap<Clinic, ClinicDto>()
+                .ForMember(dest => dest.Specialty, opt => opt.MapFrom(src => src.Specialty.ToString()));
             CreateMap<Prescription, PrescriptionDto>()
                 .ForMember(d => d.DoctorName,  o => o.MapFrom(s => s.Doctor.User.FullName))
                 .ForMember(d => d.PatientName, o => o.MapFrom(s => s.Patient.User.FullName));

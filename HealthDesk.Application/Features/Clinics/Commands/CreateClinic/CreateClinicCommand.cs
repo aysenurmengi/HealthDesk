@@ -7,6 +7,8 @@ namespace HealthDesk.Application.Features.Clinics.Commands
     public sealed record CreateClinicCommand
     (
         string Name,
+        string City,
+        string District,
         string Address,
         string PhoneNumber,
         SpecialtyType Specialty

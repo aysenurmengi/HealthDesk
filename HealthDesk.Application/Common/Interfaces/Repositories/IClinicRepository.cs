@@ -5,5 +5,7 @@ namespace HealthDesk.Application.Common.Interfaces.Repositories
     public interface IClinicRepository : IRepository<Clinic>
     {
         Task<IEnumerable<Clinic>> GetClinicsWithDoctorsAsync();
+        Task<IEnumerable<Clinic>> GetByCityAsync(string city);
+        Task<IEnumerable<string>> GetCitiesAsync();
     }
 }

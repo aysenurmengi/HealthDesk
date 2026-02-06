@@ -1,5 +1,7 @@
 using HealthDesk.Application.Features.Clinics.Queries;
 using HealthDesk.Application.Features.Clinics.Commands;
+using HealthDesk.Application.Features.Clinics.Commands.UpdateClinic;
+using HealthDesk.Application.Features.Clinics.Commands.DeleteClinic;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
@@ -18,9 +20,17 @@ namespace HealthDesk.Api.Controllers
 
         [HttpGet] // GET: api/Clinics
         [AllowAnonymous]
-        public async Task<IActionResult> GetAllClinics()
+        public async Task<IActionResult> GetAllClinics([FromQuery] string? city)
         {
-            var result = await _mediator.Send(new GetAllClinicsQuery());
+            var result = await _mediator.Send(new GetAllClinicsQuery(city));
+            return Ok(result);
+        }
+
+        [HttpGet("cities")]
+        [AllowAnonymous]
+        public async Task<IActionResult> GetCities()
+        {
+            var result = await _mediator.Send(new GetClinicCitiesQuery());
             return Ok(result);
         }
         
@@ -44,6 +54,23 @@ namespace HealthDesk.Api.Controllers
             return CreatedAtAction(nameof(GetClinicsById), new { id = result.Id }, result);
         }
 
-        //TASK-API: Implement Update and Delete endpoints
+        [HttpPut("{id}")]
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> UpdateClinic(int id, [FromBody] UpdateClinicCommand command)
+        {
+            if (id != command.Id)
+                return BadRequest("Id in route and body must match.");
+
+            var result = await _mediator.Send(command);
+            return Ok(result);
+        }
+
+        [HttpDelete("{id}")]
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> DeleteClinic(int id)
+        {
+            await _mediator.Send(new DeleteClinicCommand(id));
+            return NoContent();
+        }
     }
 }

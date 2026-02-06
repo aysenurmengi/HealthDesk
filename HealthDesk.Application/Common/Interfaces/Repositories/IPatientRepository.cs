@@ -7,5 +7,7 @@ namespace HealthDesk.Application.Common.Interfaces.Repositories
         Task<Patient?> GetByUserIdAsync(int userId);
         Task<Patient?> GetPatientWithAppointmentsAsync(int patientId);
         Task<Patient?> GetPatientWithPrescriptionsAsync(int patientId);
+        Task<Patient?> GetByIdWithUserAsync(int patientId);
+        Task<IEnumerable<Patient>> GetAllWithUserAsync();
     }
 }

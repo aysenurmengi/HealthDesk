@@ -16,6 +16,14 @@ namespace HealthDesk.Infrastructure.Persistence.EntityTypeConfiguration
                 .IsRequired()
                 .HasMaxLength(100);
 
+            builder.Property(c => c.City)
+                .IsRequired()
+                .HasMaxLength(100);
+
+            builder.Property(c => c.District)
+                .IsRequired()
+                .HasMaxLength(100);
+
             builder.Property(c => c.Address)
                 .HasMaxLength(250);
 

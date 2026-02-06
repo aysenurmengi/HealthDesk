@@ -13,6 +13,7 @@ namespace HealthDesk.Infrastructure.Persistence
         private IDoctorRepository? _doctorRepository;
         private IAppointmentRepository? _appointmentRepository;
         private IPrescriptionRepository? _prescriptionRepository;
+        private IDoctorAvailabilityRepository? _doctorAvailabilityRepository;
         
         public UnitOfWork(ApplicationDbContext context)
         {
@@ -21,6 +22,8 @@ namespace HealthDesk.Infrastructure.Persistence
         public IAppointmentRepository Appointments => _appointmentRepository ??= new AppointmentRepository(_context);
 
         public IDoctorRepository Doctors => _doctorRepository ??= new DoctorRepository(_context);
+
+        public IDoctorAvailabilityRepository DoctorAvailabilities => _doctorAvailabilityRepository ??= new DoctorAvailabilityRepository(_context);
 
         public IPatientRepository Patients => _patientRepository ??= new PatientRepository(_context);
 

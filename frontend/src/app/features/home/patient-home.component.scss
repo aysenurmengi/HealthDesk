@@ -1,0 +1,130 @@
+.home {
+  display: grid;
+  grid-template-columns: minmax(280px, 1.6fr) minmax(260px, 1fr);
+  gap: 2rem;
+}
+
+.home__left,
+.home__right {
+  display: grid;
+  gap: 1.6rem;
+}
+
+.cta-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+  padding: 1.6rem;
+  background: linear-gradient(135deg, #0ea5e9, #14b8a6);
+  color: #fff;
+  border-radius: 18px;
+}
+
+.cta-card h2 {
+  margin: 0 0 0.4rem;
+  font-size: 1.6rem;
+}
+
+.cta-card p {
+  margin: 0;
+  opacity: 0.85;
+}
+
+.cta-card__action {
+  background: rgba(255, 255, 255, 0.15);
+  color: #fff;
+  text-decoration: none;
+  padding: 0.7rem 1.4rem;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  font-weight: 600;
+}
+
+.panel {
+  background: #fff;
+  border-radius: 18px;
+  padding: 1.4rem;
+  box-shadow: 0 24px 40px rgba(15, 23, 42, 0.08);
+}
+
+.panel__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 1rem;
+}
+
+.panel__header h3 {
+  margin: 0;
+  font-size: 1.1rem;
+}
+
+.panel__header span {
+  font-size: 0.8rem;
+  color: #64748b;
+}
+
+.appointment,
+.prescription {
+  display: grid;
+  gap: 0.35rem;
+  padding: 0.85rem 0;
+  border-bottom: 1px solid rgba(148, 163, 184, 0.2);
+}
+
+.appointment:last-child,
+.prescription:last-child {
+  border-bottom: none;
+}
+
+.appointment {
+  grid-template-columns: 1fr auto;
+  align-items: center;
+}
+
+.title {
+  font-weight: 600;
+  margin: 0;
+}
+
+.status {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #0f766e;
+  background: rgba(20, 184, 166, 0.15);
+  padding: 0.35rem 0.7rem;
+  border-radius: 999px;
+}
+
+.note {
+  margin: 0;
+  color: #475569;
+  font-size: 0.9rem;
+}
+
+.info-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.6rem 0;
+  border-bottom: 1px dashed rgba(148, 163, 184, 0.3);
+}
+
+.info-row:last-child {
+  border-bottom: none;
+}
+
+.info-row span {
+  color: #64748b;
+}
+
+.empty {
+  color: #94a3b8;
+  font-size: 0.9rem;
+}
+
+@media (max-width: 960px) {
+  .home {
+    grid-template-columns: 1fr;
+  }
+}

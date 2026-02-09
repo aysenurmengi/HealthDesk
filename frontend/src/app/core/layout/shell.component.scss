@@ -1,0 +1,72 @@
+@use '../../../styles' as *;
+
+.shell {
+  min-height: 100vh;
+  display: grid;
+  grid-template-rows: auto 1fr;
+  background: var(--bg);
+  color: var(--ink);
+}
+
+.shell__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.2rem 2.5rem;
+  border-bottom: 1px solid rgba(15, 23, 42, 0.08);
+  background: rgba(255, 255, 255, 0.72);
+  backdrop-filter: blur(14px);
+}
+
+.shell__content {
+  padding: 2rem 2.5rem 4rem;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+}
+
+.brand__mark {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  display: grid;
+  place-items: center;
+  background: linear-gradient(135deg, #0f766e, #14b8a6);
+  color: #ffffff;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+}
+
+.brand__text {
+  display: grid;
+  font-weight: 600;
+  span {
+    font-size: 1.1rem;
+  }
+  small {
+    font-size: 0.75rem;
+    color: #475569;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+}
+
+.nav {
+  display: flex;
+  gap: 1.5rem;
+  a {
+    text-decoration: none;
+    color: #0f172a;
+    font-weight: 600;
+    padding-bottom: 0.2rem;
+    border-bottom: 2px solid transparent;
+    transition: 0.2s ease;
+  }
+  a.is-active {
+    border-bottom-color: #0f766e;
+    color: #0f766e;
+  }
+}
